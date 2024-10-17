@@ -1,0 +1,286 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Kbs Script Hub",
+   LoadingTitle = "Script Hub",
+   LoadingSubtitle = "by v9kk",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "kbs big botty Hub"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "DxBhMQsDrZ", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "kbs script",
+      Subtitle = "Link In Discord Server",
+      Note = "Join server from misc tab",
+      FileName = "Kbs Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+Rayfield:Notify({
+   Title = "You executed your script!",
+   Content = "very good gui",
+   Duration = 1.0,
+   Image = nil,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local MainTab = Window:CreateTab("Scripts", nil) -- Title, Image
+local Section = MainTab:CreateSection("NIGGER")
+
+local Button = MainTab:CreateButton({
+   Name = "azure modded",
+   Callback = function()
+   --[[
+############################################################################
+#     _     ______   _ ____  _____   __  __  ___  ____  ____  _____ ____   #
+#    / \   |__  / | | |  _ \| ____| |  \/  |/ _ \|  _ \|  _ \| ____|  _ \  #
+#   / _ \    / /| | | | |_) |  _|   | |\/| | | | | | | | | | |  _| | | | | #
+#  / ___ \  / /_| |_| |  _ <| |___  | |  | | |_| | |_| | |_| | |___| |_| | #
+# /_/   \_\/____|\___/|_| \_\_____| |_|  |_|\___/|____/|____/|_____|____/  #
+#                                                                          #
+#  _                   _        _                                          #
+# | |__  _   _        / \   ___| |_ _   _ _ __ _ __                        #
+# | '_ \| | | |      / _ \ / __| __| | | | '__| '_ \                       #
+# | |_) | |_| |     / ___ \ (__| |_| |_| | |  | | | |                      #
+# |_.__/ \__, |    /_/   \_\___|\__|\__, |_|  |_| |_|                      #
+#        |___/                      |___/                                  #
+############################################################################
+
+Actyrn or discord.gg/azuremodded or discord.gg/hUvujCnGMb
+Original script credits go to Elegant and Weda
+--]]
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Arsenal",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubArsenal"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+   loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Test",
+   Callback = function()
+   print "hello world"
+   end,
+})
+
+local Button = MainTab:CreateButton({
+       Name = "Kbs Lock",
+   Callback = function()
+    
+
+
+
+game.StarterGui:SetCore(
+	"SendNotification",
+	{
+		Title = "Kbs Lock",
+		Text = "Loading . . .",
+	}
+)
+wait(1)
+game.StarterGui:SetCore(
+	"SendNotification",
+	{
+		Title = " ",
+		Text = "Authenticating..",
+	}
+)
+wait(1)
+game.StarterGui:SetCore(
+	"SendNotification",
+	{
+		Title = " ",
+		Text = "Setting Up...",
+	}
+)
+wait(1)
+game.StarterGui:SetCore(
+	"SendNotification",
+	{
+		Title = " ",
+		Text = "Done!",
+	}
+)
+wait(0.5)
+game.StarterGui:SetCore(
+	"SendNotification",
+	{
+		Title = "Kbs Lock",
+		Text = "made by v9kk on discord!",
+	}
+)    
+
+
+
+local player = game.Players.LocalPlayer
+local camera = game.Workspace.CurrentCamera
+local runService = game:GetService("RunService")
+local userInputService = game:GetService("UserInputService")
+
+local aimSpeed = 0.1 -- Adjust this value for responsiveness
+local isAimAssistEnabled = false
+local predictionFactor = 5.4 -- Adjust this value for prediction accuracy
+local currentTarget = nil
+local smoothingFactor = 0.02 -- Adjust this value for smoother camera movement
+
+local function predictTargetPosition(target, deltaTime)
+    local targetPosition = target.UpperTorso.Position
+    local targetVelocity = target:FindFirstChild("Head") and target.HumanoidRootPart.Velocity or Vector3.new()
+
+    local predictedPosition = targetPosition + targetVelocity * predictionFactor * deltaTime
+    return predictedPosition
+end
+
+local function aimAtTarget()
+    if currentTarget and currentTarget.Parent then
+        local predictedPosition = predictTargetPosition(currentTarget, runService.RenderStepped:Wait())
+        local lookVector = (predictedPosition - camera.CFrame.Position).Unit
+
+        -- Smooth the camera movement
+        local smoothedLookVector = (1 - smoothingFactor) * lookVector + smoothingFactor * (camera.CFrame.LookVector)
+
+        local newCFrame = CFrame.new(camera.CFrame.Position, camera.CFrame.Position + aimSpeed * smoothedLookVector)
+        camera.CFrame = newCFrame
+    else
+        currentTarget = nil
+        isAimAssistEnabled = false
+    end
+end
+
+local function findClosestPlayerToMouse()
+    local mousePos = userInputService:GetMouseLocation()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+
+    for _, object in pairs(game.Players:GetPlayers()) do
+        if object ~= player and object.Character and object.Character:FindFirstChild("Humanoid") and object.Character:FindFirstChild("Humanoid") then
+            local targetScreenPos, onScreen = camera:WorldToScreenPoint(object.Character.UpperTorso.Position)
+
+            if onScreen then
+                local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mousePos).Magnitude
+
+                if distance < shortestDistance then
+                    closestPlayer = object.Character
+                    shortestDistance = distance
+                end
+            end
+        end
+    end
+
+    return closestPlayer
+end
+
+local function onKeyPress(input, gameProcessedEvent)
+    if not gameProcessedEvent then
+        if input.KeyCode == Enum.KeyCode.Q then
+            isAimAssistEnabled = not isAimAssistEnabled
+            if isAimAssistEnabled then
+                currentTarget = findClosestPlayerToMouse()
+            else
+                currentTarget = nil
+            end
+            print("Aim Assist Toggled:", isAimAssistEnabled)
+        end
+    end
+end
+
+local function onCharacterAdded(character)
+    character:WaitForChild("Humanoid").Died:Connect(function()
+        if currentTarget == character then
+            currentTarget = nil
+        end
+    end)
+end
+
+userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    onKeyPress(input, gameProcessedEvent)
+end)
+
+player.CharacterAdded:Connect(onCharacterAdded)
+
+runService.RenderStepped:Connect(function(deltaTime)
+    if isAimAssistEnabled then
+        aimAtTarget()
+    end
+end)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Anti lock",
+   Callback = function()
+   local Settings = {
+    Toggled = true,
+    KeyCode = Enum.KeyCode.Z,
+    HipHeight = 2.80,
+    VerticalVelocity = -35
+}
+
+local function AdjustVelocity()
+    local player = game.Players.LocalPlayer
+    local rootPart = player.Character.HumanoidRootPart
+    local oldVelocity = rootPart.Velocity
+    rootPart.Velocity = Vector3.new(oldVelocity.X, Settings.VerticalVelocity, oldVelocity.Z)
+    player.Character.Humanoid.HipHeight = Settings.HipHeight
+end
+
+local function OnInputBegan(input)
+    if input.KeyCode == Settings.KeyCode and not game:GetService('UserInputService'):GetFocusedTextBox() then
+        Settings.Toggled = not Settings.Toggled
+        if Settings.Toggled then
+            while Settings.Toggled do
+                AdjustVelocity()
+                task.wait()
+            end
+        else
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = Settings.HipHeight
+        end
+    end
+end
+
+game:GetService('UserInputService').InputBegan:Connect(OnInputBegan)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Univeseral Lock",
+   Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub/main/AirHub.lua"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Faded Hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/NighterEpic/Faded-Grid/main/YesEpic", true))()
+   end,
+})
